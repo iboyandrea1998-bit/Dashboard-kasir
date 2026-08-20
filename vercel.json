@@ -3,7 +3,10 @@
     {
       "source": "/api/penjualan",
       "destination": "/api/index.py"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
-
