@@ -10,17 +10,17 @@ def read_root():
 
 @app.get("/api/penjualan")
 def get_sales():
-    # Mencari file database di folder utama (satu tingkat di atas folder api)
+    # Jalur file database di folder utama
     db_path = os.path.join(os.path.dirname(__file__), '..', 'N152_2026-08-19_25040256_android.db')
     
     if not os.path.exists(db_path):
-        return {"error": f"Berkas database tidak ditemukan di path: {db_path}"}
+        return {"error": "Berkas database tidak ditemukan"}
         
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     
     try:
-        # Mengambil data transaksi dari tabel kasir
+        # Mengambil 5 data transaksi kasir terbaru dari tabel tx_tsale
         cursor.execute("SELECT faktur, total_faktur, time_tx FROM tx_tsale ORDER BY time_tx DESC LIMIT 5")
         rows = cursor.fetchall()
         
@@ -36,4 +36,3 @@ def get_sales():
         return {"error": str(e)}
     finally:
         conn.close()
-
